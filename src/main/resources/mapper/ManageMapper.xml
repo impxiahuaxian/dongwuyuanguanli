@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.ssm.dao.ManageMapper">
+    <resultMap id="BaseResultMap" type="com.bishe.ssm.bean.Manage">
+        <id column="manageid" jdbcType="VARCHAR" property="manageid" />
+        <result column="managename" jdbcType="VARCHAR" property="managename" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="classes" jdbcType="VARCHAR" property="classes" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="addr" jdbcType="VARCHAR" property="addr" />
+    </resultMap>
+    <select id = "getAll" parameterType="String" resultMap="BaseResultMap">
+    select manageid,managename,sex,classes,phone
+    from manage
+  </select>
+
+    <select id = "getDataById" parameterType="String" resultMap="BaseResultMap">
+    select manageid,managename,sex,classes,phone
+    from manage
+    where manageid=#{manageid}
+  </select>
+
+    <select id = "getByName" parameterType="String" resultMap="BaseResultMap">
+    select manageid,managename,sex,classes,phone
+    from manage
+    where managename like #{managename}
+  </select>
+
+    <insert id="insertManage">
+        insert into manage(manageid,managename,sex,classes,phone,addr) values (#{manageid},#{managename},#{sex},#{classes},#{phone},#{addr});
+    </insert>
+
+    <select id = "getClasses" parameterType="String" resultMap="BaseResultMap">
+    select classes
+    from manage
+  </select>
+
+   <update id="updateByPrimaryKey" parameterType="com.bishe.ssm.bean.Manage">
+    update manage
+    set managename = #{managename},sex = #{sex},classes = #{classes},phone = #{phone},addr=#{addr}
+    where manageid = #{manageid}
+  </update>
+
+   <delete id="deleteByPrimaryKey" parameterType="String">
+    delete from manage
+    where manageid = #{manageid}
+  </delete>
+
+    <select id = "getPhotoAddr" parameterType="String" resultType="String">
+    select addr
+    from manage where manageid=#{manageid}
+  </select>
+</mapper>
